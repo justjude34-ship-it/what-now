@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5EEAD4"/>
+      <stop offset="50%" stop-color="#818CF8"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="28%" cy="42%" r="68%">
+      <stop offset="0%" stop-color="#5EEAD4" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0A0A0A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0A0A0A"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g transform="translate(150,150)">
+    <path d="M155 18 L310 82 V205 C310 300 155 378 155 378 C155 378 0 300 0 205 V82 Z" fill="rgba(94,234,212,0.08)" stroke="url(#g)" stroke-width="16" stroke-linejoin="round"/>
+    <path d="M155 148 V268 M108 208 H202" stroke="url(#g)" stroke-width="16" stroke-linecap="round"/>
+  </g>
+  <text x="520" y="292" font-family="Georgia, Times New Roman, serif" font-size="84" fill="url(#g)">What Now?</text>
+  <text x="520" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#C4B5FD">A calm space for clarity and strength</text>
+  <text x="520" y="408" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#9CA3AF">After narcissistic abuse. Private. Yours.</text>
+</svg>
