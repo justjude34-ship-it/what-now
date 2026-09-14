@@ -1,7 +1,7 @@
-const CACHE = "what-now-v1";
-const ASSETS = ["./", "./index.html", "./manifest.json", "./icon.svg"];
+const CACHE = "what-now-v4";
+const ASSETS = ["./", "./index.html", "./manifest.json", "./icon.svg", "./cover.svg"];
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)));
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS).catch(() => {})));
   self.skipWaiting();
 });
 self.addEventListener("activate", (e) => {
@@ -14,6 +14,6 @@ self.addEventListener("activate", (e) => {
 });
 self.addEventListener("fetch", (e) => {
   e.respondWith(
-    caches.match(e.request).then((r) => r || fetch(e.request).then((res) => res).catch(() => caches.match("./index.html")))
+    caches.match(e.request).then((r) => r || fetch(e.request).catch(() => caches.match("./index.html")))
   );
 });
