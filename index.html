@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What Now?</title>
+<meta name="theme-color" content="#0A0A0A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icon.svg">
+<meta property="og:image" content="./cover.svg">
+<style>
+:root{--bg:#0A0A0A;--card:#141414;--text:#F5F5F5;--muted:#A3A3A3;--border:#2A2A2A;--accent:#5EEAD4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;line-height:1.55}
+.grad{background:linear-gradient(90deg,#5EEAD4,#818CF8,#A78BFA);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wrap{max-width:430px;margin:0 auto;padding:0 18px 120px}
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 0;position:sticky;top:0;background:rgba(10,10,10,.92);z-index:20}
+.brand{display:flex;align-items:center;gap:10px}.brand img{width:40px;height:40px}
+.crisis{background:#3B1111;border:1px solid #7F1D1D;color:#FECACA;border-radius:12px;padding:10px 12px;font-size:13px;margin:8px 0 16px}
+.crisis a{color:#FECACA;font-weight:700}
+.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:600;width:100%;cursor:pointer;font:inherit}
+.btn-primary{background:linear-gradient(90deg,#5EEAD4,#818CF8);color:#0A0A0A}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.exit{background:#1F2937;color:#fff;border:0;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:700;cursor:pointer}
+.card{background:rgba(20,20,20,.82);border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:12px}
+.hero{text-align:center;padding:8px 0 18px}.hero img{width:min(100%,420px);border-radius:16px;border:1px solid var(--border)}
+nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid var(--border);z-index:30}
+nav .inner{max-width:430px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr)}
+nav button{background:none;border:0;color:var(--muted);font-size:10px;padding:10px 2px 14px;cursor:pointer}
+nav button.on{color:var(--accent)}
+section{display:none}section.on{display:block}
+h1{font-size:28px}h2{font-size:20px;margin:8px 0 10px}p{margin:0 0 10px}
+textarea,.pin{width:100%;background:#0F0F0F;color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px;font:inherit}
+textarea{min-height:140px}
+label{display:flex;gap:10px;margin:8px 0;font-size:14px}
+.lock{position:fixed;inset:0;background:#0A0A0A;z-index:80;display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+.lock.show{display:flex}
+.pin{letter-spacing:10px;text-align:center;font-size:28px}
+.muted{color:var(--muted);font-size:13px}
+.icon{font-size:34px;margin-bottom:8px}
+.err{color:#F87171;min-height:1.2em;font-size:13px}
+.links{display:grid;gap:8px}
+.links button{text-align:left;background:rgba(20,20,20,.82);color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px 14px;cursor:pointer;font:inherit}
+.status{color:#5EEAD4;font-size:13px}
+</style></head>
+<body>
+<div id="lock" class="lock" aria-hidden="true">
+<img src="./cover.svg" alt="What Now cover" style="width:min(100%,380px);border-radius:16px;margin-bottom:18px">
+<h1 class="grad">What Now?</h1>
+<p class="muted">Enter your PIN to return.</p>
+<input class="pin" id="pinUnlock" inputmode="numeric" maxlength="4" placeholder="••••" aria-label="PIN">
+<div id="lockErr" class="err"></div>
+<div style="width:min(100%,320px);margin-top:8px">
+<button class="btn btn-primary" id="pinGo">Unlock</button>
+<button class="btn btn-ghost" id="pinForgot" style="margin-top:8px">Forgot PIN — wipe private data</button>
+</div>
+<p class="muted" style="margin-top:16px">Danger? Call 000 (AU) · 911 (US/CA) · 999 (UK)</p>
+<button class="exit" id="lockExit" style="margin-top:10px">Quick Exit</button>
+</div>
+<div class="wrap" id="app">
+<header>
+<div class="brand"><img src="./icon.svg" alt=""><div><div class="grad" style="font-size:18px">What Now?</div><div class="muted">Private. On this device only.</div></div></div>
+<div><button class="exit" id="lockNow" style="display:none">Lock</button><button class="exit" id="quickExit">Exit</button></div>
+</header>
+<div class="crisis">If you are in danger call <a href="tel:000">000</a> (AU), <a href="tel:911">911</a> (US/CA), or <a href="tel:999">999</a> (UK). Support: 1800RESPECT 1800 737 732.</div>
+<section class="on" id="home">
+<div class="hero">
+<img src="./cover.svg" alt="What Now app cover">
+<h1 class="grad" style="margin-top:14px">A calm space for clarity and strength</h1>
+<p class="muted">The guide opens straight away. A PIN is optional — find it in Safety.</p>
+</div>
+<div class="links">
+<button data-go="brain">Brain — why thinking clearly can feel hard</button>
+<button data-go="sane">Staying sane — Gray Rock and boundaries</button>
+<button data-go="bond">Trauma bonds</button>
+<button data-go="leave">Leaving safely</button>
+<button data-go="hoover">Hoovering</button>
+<button data-go="journal">Private journal</button>
+<button data-go="safety">Safety & optional PIN</button>
+<button data-go="help">Help lines</button>
+</div>
+</section>
+<section id="brain"><div class="icon">🧠</div><h2 class="grad">Your brain under abuse</h2><div class="card"><p>Chronic psychological abuse can produce real nervous-system changes: a hyper-reactive amygdala, a stressed hippocampus, and a tired prefrontal cortex. That is why “just leave” can feel impossible. It is not weakness. The brain can recover with safety, time, and trauma-informed support.</p></div></section>
+<section id="sane"><div class="icon">🛡️</div><h2 class="grad">Stay sane while undecided</h2><div class="card"><p><b>Gray Rock:</b> short, dull, factual answers. No emotion, no extra information, no debate.</p><p><b>Yellow Rock:</b> the same protection with polite wording when children or logistics require contact.</p><p>Temporary survival tools, not a life plan. Assume shared devices may be watched.</p></div></section>
+<section id="bond"><div class="icon">🔗</div><h2 class="grad">Trauma bonds</h2><div class="card"><p>A trauma bond is attachment built by intermittent reinforcement plus a power imbalance. Name it, interrupt contact, keep a reality journal, grieve the fantasy, and rebuild with safe people. Returning more than once is common and not failure.</p></div></section>
+<section id="leave"><div class="icon">🚪</div><h2 class="grad">Leave safely</h2><div class="card"><p>Leaving can be the most dangerous time. Do not announce the plan. Work with 1800RESPECT or a local DV service. Quietly gather IDs, money, meds, keys, and a destination.</p></div><div class="card"><b>Safety checklist</b><div id="checks"></div></div></section>
+<section id="hoover"><div class="icon">📨</div><h2 class="grad">Expect hoovering</h2><div class="card"><p>Hoovering tries to pull you back: apologies, “I’ve changed”, crises, gifts, nostalgia. The strongest response is no response.</p></div></section>
+<section id="journal"><div class="icon">📔</div><h2 class="grad">Private journal</h2><div class="card"><p class="muted">Saved only on this phone. Optional PIN is in Safety.</p><textarea id="note" placeholder="This stays on your phone only."></textarea><button class="btn btn-primary" id="saveNote" style="margin-top:10px">Save</button><div id="notes" style="margin-top:12px"></div></div></section>
+<section id="safety"><div class="icon">🔒</div><h2 class="grad">Safety & privacy</h2><div class="card"><p>The guide stays open. A PIN is optional. Use it if you want a Lock button when someone walks in. The PIN never leaves this device.</p></div><div class="card"><b id="pinHeading">Optional PIN</b><p class="muted" id="pinHelp">Choose 4 digits. Confirm them once.</p><input class="pin" id="pinSet" inputmode="numeric" maxlength="4" placeholder="••••" aria-label="New PIN"><input class="pin" id="pinConfirm" inputmode="numeric" maxlength="4" placeholder="Confirm" aria-label="Confirm PIN" style="margin-top:8px"><div id="pinErr" class="err"></div><button class="btn btn-primary" id="pinSave" style="margin-top:10px">Save PIN</button><button class="btn btn-ghost" id="pinLockBtn" style="margin-top:8px;display:none">Lock app now</button><button class="btn btn-ghost" id="pinRemove" style="margin-top:8px;display:none">Remove PIN</button><p class="status" id="pinStatus"></p></div><div class="card"><b>Quick Exit</b><p class="muted">Opens Google immediately.</p><button class="btn btn-ghost" id="safetyExit">Quick Exit</button></div></section>
+<section id="help"><div class="icon">🤝</div><h2 class="grad">Help lines</h2><div class="card"><p><b>Australia:</b> 000 · 1800RESPECT 1800 737 732 · Lifeline 13 11 14</p><p><b>United States:</b> 911 · 1-800-799-7233 · 988</p><p><b>United Kingdom:</b> 999 · 0808 2000 247 · Samaritans 116 123</p><p><b>Canada:</b> 911 · ShelterSafe.ca · 988</p></div></section>
+</div>
+<nav><div class="inner"><button class="on" data-s="home">Home</button><button data-s="brain">Brain</button><button data-s="sane">Sane</button><button data-s="bond">Bond</button><button data-s="leave">Leave</button><button data-s="safety">Safety</button></div></nav>
+<script>
+const PIN_KEY='wn_pin_hash',NOTE_KEY='wn_notes',CHECK_KEY='wn_checks';
+const items=['Safe place to go','IDs copied and stored elsewhere','Cash / independent account','Medications and charger','Trusted person + code word','New email on a safe device'];
+async function hash(v){try{const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(v+'whatNowSalt2026'));return[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('')}catch(e){return btoa(v+'whatNowSalt2026')}}
+function hasPin(){return!!localStorage.getItem(PIN_KEY)}
+function digits(el){el.addEventListener('input',()=>{el.value=el.value.replace(/\D/g,'').slice(0,4)})}
+function go(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('on'));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x.dataset.s===id));const sec=document.getElementById(id);if(sec)sec.classList.add('on');window.scrollTo(0,0)}
+function exitNow(){location.replace('https://www.google.com')}
+function showLock(){if(!hasPin()){go('safety');return}document.getElementById('lock').classList.add('show');document.getElementById('pinUnlock').value='';document.getElementById('lockErr').textContent='';document.getElementById('pinUnlock').focus()}
+function hideLock(){document.getElementById('lock').classList.remove('show')}
+function refreshPinUi(){const set=hasPin();document.getElementById('lockNow').style.display=set?'inline-block':'none';document.getElementById('pinLockBtn').style.display=set?'block':'none';document.getElementById('pinRemove').style.display=set?'block':'none';document.getElementById('pinHeading').textContent=set?'PIN is on':'Optional PIN';document.getElementById('pinHelp').textContent=set?'Use Lock when you need the screen covered. Enter a new PIN to replace it.':'Choose 4 digits. Confirm them once.';document.getElementById('pinSave').textContent=set?'Change PIN':'Save PIN'}
+async function savePin(){const a=document.getElementById('pinSet').value.trim();const b=document.getElementById('pinConfirm').value.trim();const err=document.getElementById('pinErr');err.textContent='';if(!/^\d{4}$/.test(a)){err.textContent='Use exactly 4 digits.';return}if(a!==b){err.textContent='Those PINs do not match.';return}localStorage.setItem(PIN_KEY,await hash(a));document.getElementById('pinSet').value='';document.getElementById('pinConfirm').value='';document.getElementById('pinStatus').textContent='PIN saved on this device only.';refreshPinUi()}
+async function unlock(){const v=document.getElementById('pinUnlock').value.trim();if(!/^\d{4}$/.test(v)){document.getElementById('lockErr').textContent='Use 4 digits.';return}if(await hash(v)===localStorage.getItem(PIN_KEY))hideLock();else{document.getElementById('lockErr').textContent='Incorrect PIN.';document.getElementById('pinUnlock').value=''}}
+function wipePrivate(){if(!confirm('This deletes your PIN, journal and checklist on this device.'))return;localStorage.removeItem(PIN_KEY);localStorage.removeItem(NOTE_KEY);localStorage.removeItem(CHECK_KEY);hideLock();refreshPinUi();renderNotes();renderChecks();document.getElementById('pinStatus').textContent='Private data wiped.'}
+function removePin(){if(!confirm('Remove the PIN? Journal notes will stay.'))return;localStorage.removeItem(PIN_KEY);refreshPinUi();document.getElementById('pinStatus').textContent='PIN removed.'}
+document.getElementById('pinGo').onclick=unlock;
+document.getElementById('pinUnlock').addEventListener('keydown',e=>{if(e.key==='Enter')unlock()});
+document.getElementById('pinForgot').onclick=wipePrivate;
+document.getElementById('pinSave').onclick=savePin;
+document.getElementById('pinLockBtn').onclick=showLock;
+document.getElementById('pinRemove').onclick=removePin;
+document.getElementById('lockNow').onclick=showLock;
+document.getElementById('quickExit').onclick=exitNow;
+document.getElementById('lockExit').onclick=exitNow;
+document.getElementById('safetyExit').onclick=exitNow;
+digits(document.getElementById('pinUnlock'));digits(document.getElementById('pinSet'));digits(document.getElementById('pinConfirm'));
+document.querySelector('nav').addEventListener('click',e=>{const b=e.target.closest('button');if(b)go(b.dataset.s)});
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+function renderNotes(){const list=JSON.parse(localStorage.getItem(NOTE_KEY)||'[]');document.getElementById('notes').innerHTML=list.slice().reverse().map(n=>'<div class="card"><div class="muted">'+n.t+'</div><div>'+n.v+'</div></div>').join('')||'<p class="muted">No notes yet.</p>'}
+document.getElementById('saveNote').onclick=()=>{const v=document.getElementById('note').value.trim();if(!v)return;const list=JSON.parse(localStorage.getItem(NOTE_KEY)||'[]');list.push({v,t:new Date().toLocaleString()});localStorage.setItem(NOTE_KEY,JSON.stringify(list));document.getElementById('note').value='';renderNotes()};
+function renderChecks(){const saved=JSON.parse(localStorage.getItem(CHECK_KEY)||'{}');document.getElementById('checks').innerHTML=items.map((label,i)=>'<label><input type="checkbox" data-i="'+i+'" '+(saved[i]?'checked':'')+'><span>'+label+'</span></label>').join('')}
+document.getElementById('checks').addEventListener('change',e=>{const saved=JSON.parse(localStorage.getItem(CHECK_KEY)||'{}');saved[e.target.dataset.i]=e.target.checked;localStorage.setItem(CHECK_KEY,JSON.stringify(saved))});
+renderNotes();renderChecks();refreshPinUi();
+if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
+</script>
+</body></html>
